@@ -1,6 +1,7 @@
 package main
 
 import (
+	"net"
 	"net/http"
 	"os"
 
@@ -43,10 +44,15 @@ func indexHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 			w.Header().Add(k, val)
 		}
 	}
-	log.WithFields(logrus.Fields{
-		"ip":     r.RemoteAddr,
-		"status": http.StatusOK,
-	}).Info("user:")
+	ip, _, err := net.SplitHostPort(r.RemoteAddr)
+	if err != nil {
+		log.WithError(err).Error("can' get ip addr")
+	} else {
+		log.WithFields(logrus.Fields{
+			"ip":     ip,
+			"status": http.StatusOK,
+		}).Info("user:")
+	}
 	w.Header().Add(VERSION, version)
 	w.WriteHeader(http.StatusOK)
 }

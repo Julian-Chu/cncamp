@@ -7,6 +7,7 @@
 
 
 ```shell
+// context: ../module2_homework
 make docker-build
 make docker-push
 make docker-run
