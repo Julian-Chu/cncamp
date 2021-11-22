@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: cncamp-server
+  name: cncamp-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cncamp-server
+  template:
+    metadata:
+      labels:
+        app: cncamp-server
+    spec:
+      containers:
+        - name: cncamp-server
+          image: julianchu/cncamp-go-server:dev
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000

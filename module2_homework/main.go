@@ -70,7 +70,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	}
 	ip, _, err := net.SplitHostPort(r.RemoteAddr)
 	if err != nil {
-		log.WithError(err).Error("can' get ip addr")
+		log.WithError(err).Error("can't get ip addr")
 	} else {
 		log.WithFields(logrus.Fields{
 			"ip":     ip,
