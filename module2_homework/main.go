@@ -1,9 +1,13 @@
 package main
 
 import (
+	"context"
 	"net"
 	"net/http"
 	"os"
+	"os/signal"
+	"syscall"
+	"time"
 
 	"github.com/julienschmidt/httprouter"
 	"github.com/sirupsen/logrus"
@@ -34,8 +38,28 @@ func main() {
 	})
 
 	port := ":8000"
+	srv := &http.Server{
+		Addr:    port,
+		Handler: r,
+	}
 	log.Println("listening to port", port)
-	log.Fatal(http.ListenAndServe(port, r))
+	go func() {
+		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			log.Printf("server err: %v", err)
+		}
+		log.Println("server is closed")
+	}()
+
+	shutdown := make(chan os.Signal, 1)
+	signal.Notify(shutdown, syscall.SIGINT, syscall.SIGTERM)
+	<-shutdown
+
+	log.Println("shut down server...")
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	if err := srv.Shutdown(ctx); err != nil {
+		log.Printf("server err: %v", err)
+	}
 }
 
 func indexHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
