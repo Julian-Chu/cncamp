@@ -3,8 +3,9 @@ kind: Service
 metadata:
   name: cncamp
 spec:
+  type: NodePort
   selector:
     app: cncamp
   ports:
     - port: 8000
-      targetPort: 8000
+      nodePort: 30590

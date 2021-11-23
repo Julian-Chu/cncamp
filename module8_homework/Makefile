@@ -1,6 +1,21 @@
+
+KIND_CLUSTER := kind
+
 apply:
-	kubectl apply -f deployment.yaml -f service.yaml
+	kubectl apply -f ./k8s
 
 delete:
+	kubectl delete -f ./k8s
 
-	kubectl delete -f deployment.yaml -f service.yaml
+kind-up:
+	kind create cluster \
+			--image kindest/node:v1.21.1\
+			--name $(KIND_CLUSTER) \
+			--config kind-config.yaml
+
+kind-down:
+	kind delete cluster --name $(KIND_CLUSTER)
+
+kind-load:
+	kind load docker-image julianchu/cncamp-go-server:dev
+
