@@ -9,4 +9,4 @@ spec:
   ports:
     - name: http
       port: 8000
-      nodePort: 30590
+      nodePort: 30950

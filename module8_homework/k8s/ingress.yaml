@@ -1,15 +1,15 @@
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: cncamp-ingress
-spec:
-  rules:
-    - http:
-        paths:
-          - pathType: Prefix
-            path: "/cncamp"
-            backend:
-              service:
-                name: cncamp
-                port:
-                  number: 8000
+#apiVersion: networking.k8s.io/v1
+#kind: Ingress
+#metadata:
+#  name: cncamp-ingress
+#spec:
+#  rules:
+#    - http:
+#        paths:
+#          - pathType: Prefix
+#            path: "/cncamp"
+#            backend:
+#              service:
+#                name: cncamp
+#                port:
+#                  number: 8000
