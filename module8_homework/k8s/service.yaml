@@ -5,7 +5,8 @@ metadata:
 spec:
   type: NodePort
   selector:
-    app: cncamp
+    app: cncamp-server
   ports:
-    - port: 8000
+    - name: http
+      port: 8000
       nodePort: 30590
