@@ -32,3 +32,17 @@ spec:
               port: 8000
             initialDelaySeconds: 5
             periodSeconds: 5
+          env:
+              - name: VERSION
+                valueFrom:
+                    configMapKeyRef:
+                        name: cncamp-configmap
+                        key: version
+        # volumes:
+        #     - name: config
+        #       configMap:
+        #           name: cncamp-configmap
+        #           items:
+        #           - key: "version"
+        #             path: "version"
+
