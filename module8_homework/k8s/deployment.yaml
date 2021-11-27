@@ -38,6 +38,11 @@ spec:
                     configMapKeyRef:
                         name: cncamp-configmap
                         key: version
+              - name: LOG_LEVEL
+                valueFrom:
+                    configMapKeyRef:
+                        name: cncamp-configmap
+                        key: log_level
           resources:
               requests:
                   memory: "64Mi"
@@ -45,12 +50,4 @@ spec:
               limits:
                   memory: "128Mi"
                   cpu: "500m"
-
-        # volumes:
-        #     - name: config
-        #       configMap:
-        #           name: cncamp-configmap
-        #           items:
-        #           - key: "version"
-        #             path: "version"
 

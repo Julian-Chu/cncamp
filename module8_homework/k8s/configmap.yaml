@@ -1,6 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-        name: cncamp-configmap
+    name: cncamp-configmap
 data:
-    version: "0.1.0"
+    version: 0.1.0
+    log_level: debug
