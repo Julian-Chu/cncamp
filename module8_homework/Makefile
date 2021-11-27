@@ -7,6 +7,9 @@ apply:
 delete:
 	kubectl delete -f ./k8s
 
+debug:
+	kubectl exec -it debug -- bash
+
 kind-up:
 	kind create cluster \
 			--image kindest/node:v1.21.1\

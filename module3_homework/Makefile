@@ -12,7 +12,8 @@ docker-build:
 	@docker build -f ./Dockerfile -t julianchu/cncamp-go-server:dev ../module2_homework
 
 docker-push:
-	@docker image push julianchu/cncamp-go-server:dev
+	@docker tag julianchu/cncamp-go-server:dev julianchu/cncamp-go-server:latest
+	@docker image push julianchu/cncamp-go-server:latest
 
 docker-run:
 	@docker run -p 8080:8000 julianchu/cncamp-go-server:dev

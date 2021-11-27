@@ -2,21 +2,21 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: cncamp-server
-  name: cncamp-server
+    app: cncamp
+  name: cncamp-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: cncamp-server
+      app: cncamp
   template:
     metadata:
       labels:
-        app: cncamp-server
+        app: cncamp
     spec:
       containers:
-        - name: cncamp-server
-          image: julianchu/cncamp-go-server:dev
+        - name: cncamp-httpserver
+          image: julianchu/cncamp-go-server:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000
@@ -50,4 +50,17 @@ spec:
               limits:
                   memory: "128Mi"
                   cpu: "500m"
-
+---
+#kind: Pod
+#apiVersion: v1
+#metadata:
+#  name: cncamp-app
+#  labels:
+#    app: cncamp
+#spec:
+#  containers:
+#    - name: cncamp-httpserver
+#      image: julianchu/cncamp-go-server:latest
+#      imagePullPolicy: IfNotPresent
+#      ports:
+#        - containerPort: 8000

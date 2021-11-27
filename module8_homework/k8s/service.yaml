@@ -1,12 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: cncamp
+  name: cncamp-service
 spec:
-  type: NodePort
+    #type: NodePort
   selector:
-    app: cncamp-server
+    app: cncamp
   ports:
-    - name: http
-      port: 8000
-      nodePort: 30950
+      #    - name: http
+      #      port: 8000
+      #      nodePort: 30950
+      - port: 8000
