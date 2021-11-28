@@ -2,8 +2,8 @@
 ## deploy and test
 ```shell
 make apply                 // deploy app
-curl localhost -v          // version header should be loaded from configmap
-curl localhost/healthz -v  // health check
+curl -H "Host: cncamp.com" https://127.0.0.1 -v -k // version header should be loaded from configmap
+curl -H "Host: cncamp.com" https://127.0.0.1/healthz -v -k  // health check
 make delete                // remove app
 ```
 ## k8s yaml
