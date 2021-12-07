@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"flag"
 	"math/rand"
 	"net"
 	"net/http"
@@ -11,6 +12,7 @@ import (
 	"time"
 
 	"github.com/julienschmidt/httprouter"
+	"github.com/prometheus/client_golang/prometheus"
 	"github.com/sirupsen/logrus"
 )
 
@@ -31,6 +33,8 @@ func main() {
 		//DisableColors: true,
 	},
 	)
+
+	prometheus.MustRegister(requestLatencyHistogram)
 
 	r := httprouter.New()
 	r.GET("/", indexHandler)
@@ -85,3 +89,14 @@ func indexHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	w.Header().Add(VERSION, version)
 	w.WriteHeader(http.StatusOK)
 }
+
+var (
+	normDomain = flag.Float64("normal.domain", 0.0002, "The domain for the normal distribution.")
+	normMean   = flag.Float64("normal.mean", 0.00001, "The mean for the normal distribution.")
+)
+
+var requestLatencyHistogram = prometheus.NewHistogram(prometheus.HistogramOpts{
+	Name:    "httpserver",
+	Help:    "HTTP request latency distributions.",
+	Buckets: prometheus.LinearBuckets(*normMean-5**normDomain, .5**normDomain, 20),
+})
