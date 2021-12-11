@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cncamp-ingress
+  annotations:
+      kubernetes.io/ingress.class: "nginx"
+spec:
+  tls:
+    - hosts:
+        - cncamp.com
+      secretName: cncamp-tls
+  rules:
+      - host: cncamp.com
+        http:
+            paths:
+              - pathType: Prefix
+                path: "/"
+                backend:
+                  service:
+                    name: cncamp-service
+                    port:
+                      number: 8000
+              ## why not work?
+              - pathType: Prefix
+                path: "/cncamp(/|$)(.*)"
+                backend:
+                  service:
+                    name: cncamp-service
+                    port:
+                      number: 8000
