@@ -30,6 +30,9 @@ delete:
 debug:
 	kubectl exec -it debug -- bash
 
+ingress-install:
+	kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml	
+
 kind-up:
 	kind create cluster \
 			--image kindest/node:v1.21.1\
@@ -41,4 +44,11 @@ kind-down:
 
 kind-load:
 	kind load docker-image julianchu/cncamp-go-server:metrics
+
+
+prometheus-install:
+	helm install prom-stack prometheus-community/kube-prometheus-stack
+
+prometheus-unstall:
+	helm unstall prom-stack
 

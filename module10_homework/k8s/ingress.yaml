@@ -5,13 +5,12 @@ metadata:
   annotations:
       kubernetes.io/ingress.class: "nginx"
 spec:
-  tls:
-    - hosts:
-        - cncamp.com
-      secretName: cncamp-tls
+  #  tls:
+  #    - hosts:
+  #        - cncamp.com
+  #      secretName: cncamp-tls
   rules:
-      - host: cncamp.com
-        http:
+      - http:
             paths:
               - pathType: Prefix
                 path: "/"
@@ -28,3 +27,21 @@ spec:
                     name: cncamp-service
                     port:
                       number: 8000
+              - pathType: Prefix
+                path : "/grafana"
+                backend:
+                  service:
+                    name:  prom-stack-grafana
+                    port:
+                      number: 80
+
+
+              - pathType: Prefix
+                path : "/prometheus"
+                backend:
+                  service:
+                    name:  prom-stack-kube-prom-prometheus
+                    port:
+                      number: 9090
+
+

@@ -13,6 +13,7 @@ import (
 
 	"github.com/julienschmidt/httprouter"
 	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/sirupsen/logrus"
 )
 
@@ -41,6 +42,7 @@ func main() {
 	r.GET("/healthz", func(w http.ResponseWriter, _ *http.Request, _ httprouter.Params) {
 		w.WriteHeader(http.StatusOK)
 	})
+	r.Handler("GET", "/metrics", promhttp.Handler())
 
 	port := ":8000"
 	srv := &http.Server{
