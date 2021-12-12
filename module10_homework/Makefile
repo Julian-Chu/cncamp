@@ -47,7 +47,7 @@ kind-load:
 
 
 prometheus-install:
-	helm install prom-stack -f values.yaml prometheus-community/kube-prometheus-stack
+	helm install prom-stack -f prometheus-additional.yaml -f values.yaml prometheus-community/kube-prometheus-stack
 
 prometheus-uninstall:
 	helm uninstall prom-stack
