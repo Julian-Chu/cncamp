@@ -47,8 +47,17 @@ kind-load:
 
 
 prometheus-install:
-	helm install prom-stack prometheus-community/kube-prometheus-stack
+	helm install prom-stack -f values.yaml prometheus-community/kube-prometheus-stack
 
-prometheus-unstall:
-	helm unstall prom-stack
+prometheus-uninstall:
+	helm uninstall prom-stack
 
+prometheus-forward:
+	kubectl port-forward service/prom-stack-kube-prometheus-prometheus 3001:9090
+
+grafana-forward:
+	kubectl port-forward service/prom-stack-grafana 3000:80
+
+
+helm-upgrade:
+	helm upgrade -f prometheus-additional.yaml  -f values.yaml  prom-stack prometheus-community/kube-prometheus-stack

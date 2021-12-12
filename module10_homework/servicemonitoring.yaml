@@ -1,0 +1,13 @@
+apiVersion:                 monitoring.coreos.com/v1
+kind:                       ServiceMonitor
+metadata:
+  name:                     cncamp-service
+  labels:
+      app: cncamp
+      release: prom-stack
+spec:
+  selector:
+    matchLabels:
+      app:                  cncamp
+  endpoints:
+  - port:                   web 

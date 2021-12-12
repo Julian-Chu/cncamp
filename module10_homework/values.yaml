@@ -2190,9 +2190,7 @@ prometheus:
     ## ServiceMonitors to be selected for target discovery.
     ## If {}, select all ServiceMonitors
     ##
-    serviceMonitorSelector: 
-        matchLabels: 
-          prometheus: cncamp-service
+    serviceMonitorSelector: {}
     ## Example which selects ServiceMonitors with label "prometheus" set to "somelabel"
     # serviceMonitorSelector:
     #   matchLabels:
@@ -2216,6 +2214,7 @@ prometheus:
     ## If {}, select all PodMonitors
     ##
     podMonitorSelector: {}
+
     ## Example which selects PodMonitors with label "prometheus" set to "somelabel"
     # podMonitorSelector:
     #   matchLabels:
