@@ -1,10 +1,10 @@
 
 KIND_CLUSTER := kind
 test-healthz:
-	@curl -XGET -I http://localhost:8000/healthz
+	@curl -XGET -I http://localhost/healthz -v 
 
 test-response:
-	@curl -XGET -I  http://localhost:8000 -H "MyHeader: test"
+	@curl -XGET -I  http://localhost/ -v
 
 run:
 	@export VERSION="1.1.1" && go run main.go
