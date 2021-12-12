@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"flag"
 	"math/rand"
 	"net"
 	"net/http"
@@ -72,6 +71,8 @@ func main() {
 var randGenerator = rand.New(rand.NewSource(time.Now().UnixNano()))
 
 func indexHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	timer := prometheus.NewTimer(requestLatencyHistogram)
+	defer timer.ObserveDuration()
 	delay := randGenerator.Intn(2000)
 	time.Sleep(time.Duration(delay) * time.Millisecond)
 	for k, vals := range r.Header {
@@ -91,14 +92,3 @@ func indexHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	w.Header().Add(VERSION, version)
 	w.WriteHeader(http.StatusOK)
 }
-
-var (
-	normDomain = flag.Float64("normal.domain", 0.0002, "The domain for the normal distribution.")
-	normMean   = flag.Float64("normal.mean", 0.00001, "The mean for the normal distribution.")
-)
-
-var requestLatencyHistogram = prometheus.NewHistogram(prometheus.HistogramOpts{
-	Name:    "httpserver",
-	Help:    "HTTP request latency distributions.",
-	Buckets: prometheus.LinearBuckets(*normMean-5**normDomain, .5**normDomain, 20),
-})
