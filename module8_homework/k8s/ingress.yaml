@@ -13,16 +13,17 @@ spec:
       - host: cncamp.com
         http:
             paths:
+              ## why not work?
               - pathType: Prefix
-                path: "/"
+                #path: "/cncamp(/|$)(.*)"
+                path: "/cncamp"
                 backend:
                   service:
                     name: cncamp-service
                     port:
                       number: 8000
-              ## why not work?
               - pathType: Prefix
-                path: "/cncamp(/|$)(.*)"
+                path: "/"
                 backend:
                   service:
                     name: cncamp-service
