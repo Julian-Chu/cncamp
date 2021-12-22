@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: cncamp
+  name: cncamp-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: cncamp
+  template:
+    metadata:
+      labels:
+        app: cncamp
+    spec:
+      containers:
+        - name: cncamp-httpserver
+          image: julianchu/cncamp-go-server:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8000
+            initialDelaySeconds: 3
+            periodSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          env:
+              - name: VERSION
+                valueFrom:
+                    configMapKeyRef:
+                        name: cncamp-configmap
+                        key: version
+              - name: LOG_LEVEL
+                valueFrom:
+                    configMapKeyRef:
+                        name: cncamp-configmap
+                        key: log_level
+          resources:
+              requests:
+                  memory: "64Mi"
+                  cpu: "250m"
+              limits:
+                  memory: "128Mi"
+                  cpu: "500m"
+---
+#kind: Pod
+#apiVersion: v1
+#metadata:
+#  name: cncamp-app
+#  labels:
+#    app: cncamp
+#spec:
+#  containers:
+#    - name: cncamp-httpserver
+#      image: julianchu/cncamp-go-server:latest
+#      imagePullPolicy: IfNotPresent
+#      ports:
+#        - containerPort: 8000
