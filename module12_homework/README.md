@@ -1,8 +1,11 @@
 # Homework 12: Deploy httpserver with istio
+## install istioctl
+https://istio.io/latest/docs/ops/diagnostic-tools/istioctl/#install-hahahugoshortcode-s2-hbhb
 ## How to start 
 ### start kind cluster if need
 `make kind-up`
-### Install Istio
+### install istio with istioctl
+`istioctl install`
 ...
 ### deploy and test
 ```shell
