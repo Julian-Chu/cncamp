@@ -2,13 +2,15 @@
 KIND_CLUSTER := kind
 
 apply:
-	kubectl apply -f ./k8s
+	kubectl create ns module12
+	kubectl apply -f ./k8s -n module12
 
 delete:
-	kubectl delete -f ./k8s
+	kubectl delete ns module12
+	#kubectl delete -f ./k8s
 
 debug:
-	kubectl exec -it debug -- bash
+	kubectl exec -it debug -n module12 -- bash
 
 kind-up:
 	kind create cluster \

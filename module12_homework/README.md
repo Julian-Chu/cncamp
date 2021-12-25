@@ -1,6 +1,20 @@
 # Homework 12: Deploy httpserver with istio
+[v] deploy httpserver with istio\ 
+[]
+[]
+
 ## install istioctl
 https://istio.io/latest/docs/ops/diagnostic-tools/istioctl/#install-hahahugoshortcode-s2-hbhb
+
+## minikube 
+in new terminal, execute `minikube tunnel`
+Now an external ip is assigned to the ingress gateway 
+
+
+
+
+
+--- under construction ---
 ## How to start 
 ### start kind cluster if need
 `make kind-up`
