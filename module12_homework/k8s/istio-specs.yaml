@@ -9,12 +9,26 @@ spec:
     - cncamp-service.cncamp.io
   http:
     - match:
-        - port: 443
+      - port: 443
+      - uri:
+          prefix: "/module12"
+      rewrite:
+        uri: "/"
       route:
         - destination:
             host: cncamp-service.module12.svc.cluster.local
             port:
               number: 8000
+    - match:
+      - uri:
+          prefix: "/nginx"
+      rewrite:
+        uri: "/"
+      route:
+        - destination:
+            host: nginx.module12.svc.cluster.local
+            port: 
+              number: 80
 ---
 apiVersion: networking.istio.io/v1beta1
 kind: Gateway

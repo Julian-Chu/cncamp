@@ -10,11 +10,14 @@ https://istio.io/latest/docs/ops/diagnostic-tools/istioctl/#install-hahahugoshor
 in new terminal, execute `minikube tunnel`
 Now an external ip is assigned to the ingress gateway 
 
-##
+### deploy with https
 `kubectl create -n istio-system secret tls cncamp-credential --key=cncamp.io.key --cert=cncamp.io.crt`
 `curl --resolve cncamp-service.cncamp.io:443:$INGRESS_IP https://cncamp-service.cncamp.io/ -v -k`
 
+### L7 routing
+`curl --resolve cncamp-service.cncamp.io:443:$INGRESS_IP https://cncamp-service.cncamp.io/module12 -v -k`
 
+`curl --resolve cncamp-service.cncamp.io:443:$INGRESS_IP https://cncamp-service.cncamp.io/nginx -v -k`
 
 --- under construction ---
 ## How to start 
