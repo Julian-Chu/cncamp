@@ -9,7 +9,7 @@ spec:
     - cncamp-service.cncamp.io
   http:
     - match:
-        - port: 80
+        - port: 443
       route:
         - destination:
             host: cncamp-service.module12.svc.cluster.local
@@ -27,6 +27,9 @@ spec:
     - hosts:
         - cncamp-service.cncamp.io
       port:
-        name: http-default
-        number: 80
-        protocol: HTTP
+        name: https-default
+        number: 443
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: cncamp-credential
