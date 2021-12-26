@@ -1,13 +1,17 @@
 
 KIND_CLUSTER := kind
 
+install-tracing:
+	kubectl apply -f jaeger.yaml
+	kubectl edit configmap istio -n istio-system set tracing.sampling=100
 apply:
 	kubectl create ns module12
+	kubectl label ns module12 istio-injection=enabled
 	kubectl apply -f ./k8s -n module12
 
 delete:
+	kubectl delete -f ./k8s -n module12
 	kubectl delete ns module12
-	#kubectl delete -f ./k8s
 
 debug:
 	kubectl exec -it debug -n module12 -- bash
